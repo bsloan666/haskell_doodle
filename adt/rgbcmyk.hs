@@ -34,13 +34,8 @@ fromRGB (r, g, b) =
         else Nothing
     
 clampByte :: Int -> Int
--- Mohsen provided a neater way to do this. I'm too dumb to make it work 
-clampByte x =  
-    if ( x <= 0)
-        then 0
-        else if (x > 255)
-            then 255
-            else x
+-- Mohsen provided this neater way to do this. 
+clampByte = min 255 . max 0  
 
 indexOf :: Int -> Char -> [Char] -> Int
 -- Ah recursion. And why isn't this in the standard library?
