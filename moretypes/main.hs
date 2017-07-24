@@ -5,23 +5,22 @@
 
 -- Much of the code is from the notes.
 
-data Tree a = Nil | Node (Tree a) a (Tree a)  deriving (Eq, Ord, Read)
+data Tree a = Nil | Node (Tree a) a (Tree a)  deriving (Eq, Ord) 
 
 indent :: Int -> String
 indent 0 = "" 
 indent i = replicate i ' ' 
 
-depth :: Tree a -> Int
-depth Nil = 0
-depth (Node l _ r) = 1 + max (depth l) (depth r)
+
+recshow :: Show a => Int -> Tree a -> [Char] 
+recshow depth Nil = concat [(indent depth), "Nil"]
+recshow depth (Node l x r) =  concat [ (indent (depth)), show x, "\n", 
+                                        recshow (depth + 1) l, "\n", 
+                                        recshow (depth + 1) r ]
 
 instance Show a => Show (Tree a) where
-  show Nil = "Nil"
-  show (Node l x r) = do
-    let d = depth l
-    concat [ (indent (d-1)), show x, "\n", 
-             (indent d), show l, "\n", 
-             (indent d), show r ]
+  show (Node l x r) = (recshow 0 (Node l x r)) 
+  show a = show a
 
 empty = Nil
 
