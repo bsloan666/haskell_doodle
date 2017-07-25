@@ -13,14 +13,13 @@ indent i = replicate i ' '
 
 
 recshow :: Show a => Int -> Tree a -> [Char] 
-recshow depth Nil = concat [(indent depth), "Nil"]
-recshow depth (Node l x r) =  concat [ (indent (depth)), show x, "\n", 
-                                        recshow (depth + 1) l, "\n", 
-                                        recshow (depth + 1) r ]
+recshow depth Nil = indent depth ++ "Nil"
+recshow depth (Node l x r) =  concat [ indent (depth), show x, "\n", 
+                                       recshow (depth + 1) l, "\n", 
+                                       recshow (depth + 1) r ]
 
 instance Show a => Show (Tree a) where
-  show (Node l x r) = (recshow 0 (Node l x r)) 
-  show a = show a
+  show = recshow 0 
 
 empty = Nil
 
@@ -40,6 +39,6 @@ main = do
     putStrLn ""
     let tree = foldr insert empty [8, 4, 1, 5, 3]
     putStrLn "moretypes: show tree"
-    putStrLn (show( tree))
+    putStrLn $ show tree
      
  
