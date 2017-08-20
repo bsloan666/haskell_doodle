@@ -19,15 +19,10 @@ recshow depth (Node l x r) =  concat [ indent (depth), show x, "\n",
                                        recshow (depth + 1) l, "\n", 
                                        recshow (depth + 1) r ]
 
-instance (Monoid a, Ord a) => Monoid (Tree a) where
+instance ( Ord a) => Monoid (Tree a) where
   mempty = empty
   --mappend :: Tree a -> Tree a -> Tree a
-  mappend Nil (Node l c r) = (Node l c r)
-  mappend (Node l c r) Nil = (Node l c r)
-  mappend (Node x y z) (Node l c r) = 
-    if c > y
-      then Node x y (Node l c r)
-      else Node (Node l c r) y z
+  mappend t1 t2 = fromList ((toList t1) ++ (toList t2)) 
  
 instance Show a => Show (Tree a) where
   show = recshow 0 
