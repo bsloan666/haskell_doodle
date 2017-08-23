@@ -60,9 +60,9 @@ main = do
     putStrLn (show [5, 3]) 
     let tree1 = fromList [8, 4, 1]
     let tree2 = fromList [5, 3]
-    putStrLn "moretypes: show tree1"
+    putStrLn "Typeclasses: show tree1"
     putStrLn $ show tree1
-    putStrLn "moretypes: show tree2"
+    putStrLn "Typeclasses: show tree2"
     putStrLn $ show tree2
     let list2 = toList tree2
     putStrLn (show list2)
